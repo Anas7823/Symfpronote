@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Matières{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .lesMatieres{
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+</style>
+{% for type, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ type }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+<h1>Matières</h1>
+<div class="example-wrapper">
+    {{ form_start(form) }}
+    {{ form_row(form.nom, {'label': 'matiere.Labelnom'|trans}) }}
+    {{ form_row(form.coeff, {'label': 'matiere.Labelcoeff'|trans}) }}
+    {{ form_row(form.submit, {'label': 'matiere.btnAddMatiere'|trans}) }}
+    {{ form_end(form) }}
+</div>
+<div class="lesMatieres">
+    {% for matiere in matieres %}
+        <div class="matiere">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ matiere.nom }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Coefficient: {{ matiere.coeff }}</h6>
+                    <p class="card-text">Description....</p>
+                    <a href="{{ path('matiere_detail', {'id': matiere.id}) }}" class="card-link">{{ 'matiere.btnVoir'|trans }}</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

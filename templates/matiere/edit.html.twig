@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Matières{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+{% for type, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ type }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+<h1>{{"matiere.modifTitle"|trans}} {{ matiere.nom }}</h1>
+<div class="example-wrapper">
+    {{ form_start(form) }}
+    {{ form_row(form.nom, {'label': 'matiere.Labelnom'|trans}) }}
+    {{ form_row(form.coeff, {'label': 'matiere.Labelcoeff'|trans}) }}
+    {{ form_row(form.submit, {'label': 'matiere.btnSubmit'|trans}) }}
+    {{ form_end(form) }}
+
+</div>
+
+{% endblock %}

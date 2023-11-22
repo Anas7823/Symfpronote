@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Matières{% endblock %}
+
+{% block body %}
+<style>
+    .lesMatieres{
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+</style>
+<h1>{{"matiere.Title"|trans}}: {{ matiere.nom }}</h1>
+
+{{"matiere.coeff"|trans}}: {{ matiere.coeff }}
+<br/>
+<a href="{{ path("edit_matiere", {"id": matiere.id}) }}" class="succes">{{'matiere.btnModifer'|trans}}</a>
+<br/>
+<a href="{{ path("delete_matiere", {"id": matiere.id}) }}" class="danger">{{'matiere.btnSupprimer'|trans}}</a>
+              
+{% endblock %}

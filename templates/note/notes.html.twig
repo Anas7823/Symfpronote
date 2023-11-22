@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello NoteController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .moyenne { color: red; border: 1px solid black; border-radius: 5px; padding: 5px; width: 100%; text-align: center; }
+</style>
+{% for type, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ type }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+<div class="example-wrapper">
+    <h1>{{ 'note.list_title'|trans }}</h1>
+    <a href="{{ path('app_note') }}" class="btn btn-primary">{{ 'note.go_to_form'|trans }}</a> <br/>
+    <h1 class="moyenne">{{ 'note.average'|trans }}: {{ moyenne }}</h1>
+    {% if notes is not empty %}
+        {% for note in notes %}
+            {{ 'note.note'|trans }}: {{ note.laNote }} <br>
+            {{ 'note.subject'|trans }}: {{ note.matiere.nom }} <br>
+            {{ 'note.coeff'|trans }}: {{ note.matiere.coeff }} <br>
+            {{ 'note.date'|trans }}: {{ note.date | date('d/m/Y H:i:s') }}
+            <hr/>
+        {% endfor %}
+    {% else %}
+        <p>{{ 'note.no_notes'|trans }}</p>
+    {% endif %}
+</div>
+{% endblock %}
