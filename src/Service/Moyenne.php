@@ -12,10 +12,14 @@ class Moyenne
         }
 
         $total = 0;
+        $totcoeff = 0;
+        $Unenote = 0;
         foreach ($notes as $note) {
-            $total += $note->getLaNote();
+            $Unenote += $note->getLaNote();
+            $total += $note->getLaNote() * $note->getMatiere()->getCoeff();
+            $totcoeff += $note->getMatiere()->getCoeff();
         }
 
-        return round($total) / count($notes);
+        return round($total / $totcoeff, 2);
     }
 }

@@ -12,13 +12,19 @@
         flex-wrap: wrap;
         justify-content: space-around;
     }
+    .btns{
+        display: flex;
+    }
+    .btns a{
+        margin: 10px;
+    }
 </style>
 <h1>{{"matiere.Title"|trans}}: {{ matiere.nom }}</h1>
 
 {{"matiere.coeff"|trans}}: {{ matiere.coeff }}
 <br/>
-<a href="{{ path("edit_matiere", {"id": matiere.id}) }}" class="succes">{{'matiere.btnModifer'|trans}}</a>
-<br/>
-<a href="{{ path("delete_matiere", {"id": matiere.id}) }}" class="danger">{{'matiere.btnSupprimer'|trans}}</a>
-              
+<div class="btns">
+    <a class="btn btn-info" href="{{ path("edit_matiere", {"id": matiere.id}) }}">{{'matiere.btnModifer'|trans}}</a>
+    <a class="btn btn-danger" href="{{ path("delete_matiere", {"id": matiere.id}) }}">{{'matiere.btnSupprimer'|trans}}</a>
+</div>              
 {% endblock %}

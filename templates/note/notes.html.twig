@@ -18,9 +18,9 @@
 
 <div class="example-wrapper">
     <h1>{{ 'note.list_title'|trans }}</h1>
+    {% if notes is not empty %}
     <a href="{{ path('app_note') }}" class="btn btn-primary">{{ 'note.go_to_form'|trans }}</a> <br/>
     <h1 class="moyenne">{{ 'note.average'|trans }}: {{ moyenne }}</h1>
-    {% if notes is not empty %}
         {% for note in notes %}
             {{ 'note.note'|trans }}: {{ note.laNote }} <br>
             {{ 'note.subject'|trans }}: {{ note.matiere.nom }} <br>
@@ -30,6 +30,7 @@
         {% endfor %}
     {% else %}
         <p>{{ 'note.no_notes'|trans }}</p>
+        <a href="{{ path('app_note') }}" class="btn btn-primary">{{ 'note.go_to_form'|trans }}</a> <br/>
     {% endif %}
 </div>
 {% endblock %}
