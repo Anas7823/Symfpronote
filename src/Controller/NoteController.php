@@ -70,8 +70,10 @@ class NoteController extends AbstractController
     {
         if ($sortingOption === 'note') {
             $notes = $this->em->getRepository(Note::class)->findBy([], ['laNote' => 'DESC']);
-        } else {
+        } else if ($sortingOption === 'date') {
             $notes = $this->em->getRepository(Note::class)->findBy([], ['date' => 'DESC']);
+        } else {
+            $notes = $this->em->getRepository(Note::class)->findAll();
         }
 
         return $notes;

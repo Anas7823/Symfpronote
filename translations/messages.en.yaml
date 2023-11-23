@@ -15,6 +15,7 @@ note:
   no_notes: "No notes"
   TrierPar: "Sort by"
   BtnTrie: "Sort"
+  default: "Default"
 banner:
   noteLink: "Notes"
   matiereLink: "Subjects"

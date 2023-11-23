@@ -4,9 +4,62 @@
 
 {% block body %}
 <style>
+    @keyframes rainbow {
+        0% { color: red; }
+        16.666% { color: orange; }
+        33.333% { color: yellow; }
+        50% { color: green; }
+        66.666% { color: blue; }
+        83.333% { color: indigo; }
+        100% { color: violet; }
+        0% { background-position: 100% 0%; }
+      100% { background-position: 0% 0%; }
+    }
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    .moyenne { color: red; border: 1px solid black; border-radius: 5px; padding: 5px; width: 100%; text-align: center; }
+    
+    .moyenne {
+      color: red;
+      animation: none; 
+    }
+    .moyenne:hover {
+        display: inline-block;
+        background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+        background-size: 150% 100%;
+        color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+        animation: rainbow 4s linear infinite;
+        cursor: crosshair;
+    }
+    .formTrie { 
+        display: flex; 
+        align-items: center; 
+        width: 100%; 
+        justify-content: end; 
+        margin-bottom: 20px;  
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.19);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(7.3px);
+        -webkit-backdrop-filter: blur(7.3px);
+        border: 1px solid rgba(255, 255, 255, 0.21);
+    }
+    .formTrie label { margin: 10px; }
+    .formTrie select { margin: 20px; }
+    .note-item { 
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    .note-item:hover { 
+        background: rgba(255, 255, 255, 0.19);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(7.3px);
+        -webkit-backdrop-filter: blur(7.3px);
+        border: 1px solid rgba(255, 255, 255, 0.21);
+    }
 </style>
 {% for type, messages in app.flashes %}
     {% for message in messages %}
@@ -20,9 +73,10 @@
     <h1>{{ 'note.list_title'|trans }}</h1>
 
     {# Formulaire de trie #}
-    <form method="get" action="{{ path('listeNotesTriees') }}">
+    <form method="get" action="{{ path('listeNotesTriees') }}" class='formTrie'>
         <label for="sortingOption">{{ 'note.TrierPar'|trans }} :</label>
         <select name="sortingOption" id="sortingOption">
+            <option value="defaut">{{ 'note.default'|trans }}</option>
             <option value="date">{{ 'note.date'|trans }}</option>
             <option value="note">{{ 'note.note'|trans }}</option>
         </select>
@@ -32,13 +86,15 @@
     {% if notes is not empty %}
     <a href="{{ path('app_note') }}" class="btn btn-primary">{{ 'note.go_to_form'|trans }}</a> <br/>
     <h1 class="moyenne">{{ 'note.average'|trans }}: {{ moyenne }}</h1>
-        {% for note in notes %}
-            {{ 'note.note'|trans }}: {{ note.laNote }} <br>
-            {{ 'note.subject'|trans }}: {{ note.matiere.nom }} <br>
-            {{ 'note.coeff'|trans }}: {{ note.matiere.coeff }} <br>
-            {{ 'note.date'|trans }}: {{ note.date | date('d/m/Y H:i:s') }}
-            <hr/>
-        {% endfor %}
+            {% for note in notes %}
+        <div class="note-item">
+                {{ 'note.note'|trans }}: {{ note.laNote }} <br>
+                {{ 'note.subject'|trans }}: {{ note.matiere.nom }} <br>
+                {{ 'note.coeff'|trans }}: {{ note.matiere.coeff }} <br>
+                {{ 'note.date'|trans }}: {{ note.date | date('d/m/Y H:i:s') }}
+        </div>
+                <hr/>
+            {% endfor %}
     {% else %}
         <p>{{ 'note.no_notes'|trans }}</p>
         <a href="{{ path('app_note') }}" class="btn btn-primary">{{ 'note.go_to_form'|trans }}</a> <br/>
