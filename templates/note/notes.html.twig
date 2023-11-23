@@ -18,6 +18,17 @@
 
 <div class="example-wrapper">
     <h1>{{ 'note.list_title'|trans }}</h1>
+
+    {# Formulaire de trie #}
+    <form method="get" action="{{ path('listeNotesTriees') }}">
+        <label for="sortingOption">{{ 'note.TrierPar'|trans }} :</label>
+        <select name="sortingOption" id="sortingOption">
+            <option value="date">{{ 'note.date'|trans }}</option>
+            <option value="note">{{ 'note.note'|trans }}</option>
+        </select>
+        <button type="submit" class="btn btn-primary">{{ 'note.BtnTrie'|trans }}</button>
+    </form>
+
     {% if notes is not empty %}
     <a href="{{ path('app_note') }}" class="btn btn-primary">{{ 'note.go_to_form'|trans }}</a> <br/>
     <h1 class="moyenne">{{ 'note.average'|trans }}: {{ moyenne }}</h1>

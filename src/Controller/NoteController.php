@@ -52,4 +52,29 @@ class NoteController extends AbstractController
             'moyenne' => $moyenne
         ]);
     }
+    #[Route('/notes/list', name: 'listeNotesTriees')]
+    public function listWithSorting(Request $request, Moyenne $moyenne): Response
+    {
+        $sortingOption = $request->query->get('sortingOption', 'date');
+        $notes = $this->getNotesSortedBy($sortingOption);
+
+        $moyenne = $moyenne->calculateAverage($notes);
+
+        return $this->render('note/notes.html.twig', [
+            'controller_name' => 'NoteController',
+            'notes' => $notes,
+            'moyenne' => $moyenne
+        ]);
+    }
+    private function getNotesSortedBy(string $sortingOption): array
+    {
+        if ($sortingOption === 'note') {
+            $notes = $this->em->getRepository(Note::class)->findBy([], ['laNote' => 'DESC']);
+        } else {
+            $notes = $this->em->getRepository(Note::class)->findBy([], ['date' => 'DESC']);
+        }
+
+        return $notes;
+    }
+
 }

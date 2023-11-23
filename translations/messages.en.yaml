@@ -13,6 +13,8 @@ note:
   date: "Date"
   average: "Average"
   no_notes: "No notes"
+  TrierPar: "Sort by"
+  BtnTrie: "Sort"
 banner:
   noteLink: "Notes"
   matiereLink: "Subjects"
